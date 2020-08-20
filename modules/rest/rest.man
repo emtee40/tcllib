@@ -251,6 +251,11 @@ argument representing one part of a mime/multipart document.
 Arguments must be lists containing 2 elements, a list of header keys
 and values, and the mime part body, in this order.
 
+[def [const mime_multipart/<value>]]
+
+Same as mime_multipart, but Content-Type header is set to
+multipart/<value>.
+
 [list_end]
 
 [comment @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@]

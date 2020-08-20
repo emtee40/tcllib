@@ -192,7 +192,12 @@ proc ::rest::create_interface {name} {
             } elseif {[string match mime_multi* [lindex [dict get $config body] 0]]} {
                 lappend proc {if {$body == ""} { return -code error "wrong # args: should be \"[lindex [info level 0] 0] ?options? string\"" }}
                 lappend proc {set b [::rest::mime_multipart body $body]}
-                lappend proc {dict set config headers content-type "multipart/related; boundary=$b"}
+                if {[regexp {/(.+)$} [lindex [dict get $config body] 0] dummy match]} {
+                    set content_type "multipart/$match"
+                } else {
+                    set content_type "multipart/related"
+                }
+                lappend proc "dict set config headers content-type \"$content_type; boundary=\$b\""
             }
         }
         if {[dict exists $config error-body]} {
